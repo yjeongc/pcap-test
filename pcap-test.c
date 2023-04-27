@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdint.h>
+
 #define ETHER_ADDR_LEN 6
 
 typedef struct libnet_ethernet_hdr
