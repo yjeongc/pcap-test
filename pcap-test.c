@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
         }
 
         for (int k = 0; k < 2; k++) {
-            eth.ether_type[k] = (u_int16_t*)packet[k+ETHER_ADDR_LEN*2];
+            eth.ether_type[k] = packet[k+ETHER_ADDR_LEN*2];
         }
 
         printf("SRC MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
