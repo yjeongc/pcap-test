@@ -8,7 +8,7 @@ typedef struct libnet_ethernet_hdr
 {
     u_int8_t  ether_dhost[ETHER_ADDR_LEN];/* destination ethernet address */
     u_int8_t  ether_shost[ETHER_ADDR_LEN];/* source ethernet address */
-    u_int16_t ether_type;                 /* protocol */
+    u_int16_t ether_type[2];                 /* protocol */
 }_LEH;
 
 void usage() {
@@ -62,11 +62,13 @@ int main(int argc, char* argv[]) {
             eth.ether_dhost[i] = packet[i];
         }
 
-        for (int i = 0; i < ETHER_ADDR_LEN; i++) {
-            eth.ether_shost[i] = packet[i+ETHER_ADDR_LEN];
+        for (int j = 0; j < ETHER_ADDR_LEN; j++) {
+            eth.ether_shost[j] = packet[j+ETHER_ADDR_LEN];
         }
 
-        eth.ether_type = ntohs((uint16_t)packet[22]);
+        for (int k = 0; k < 2; k++) {
+            eth.ether_type[k] = (u_int16_t*)packet[k+ETHER_ADDR_LEN*2];
+        }
 
         printf("SRC MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
                eth.ether_dhost[0], eth.ether_dhost[1], eth.ether_dhost[2],
@@ -74,8 +76,8 @@ int main(int argc, char* argv[]) {
         printf("DST MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
                eth.ether_shost[0], eth.ether_shost[1], eth.ether_shost[2],
                eth.ether_shost[3], eth.ether_shost[4], eth.ether_shost[5]);
-        printf("Protocol: 0x%04x\n", eth.ether_type);
+        printf("Protocol: 0x%02x:0x%02x\n", eth.ether_type[0],eth.ether_type[1]);
 
-    pcap_close(pcap);
+        pcap_close(pcap);
     }
 }
