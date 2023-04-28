@@ -8,7 +8,6 @@ typedef struct libnet_ethernet_hdr
 {
     u_int8_t  ether_src[ETHER_ADDR_LEN];/* destination ethernet address */
     u_int8_t  ether_dst[ETHER_ADDR_LEN];/* source ethernet address */
-    u_int16_t ether_type[2];                 /* protocol */
 }_LEH;
 
 void usage() {
@@ -66,9 +65,6 @@ int main(int argc, char* argv[]) {
             eth.ether_dst[j] = packet[j+ETHER_ADDR_LEN];
         }
 
-        for (int k = 0; k < 2; k++) {
-            eth.ether_type[k] = packet[k+ETHER_ADDR_LEN*2];
-        }
 
         printf("SRC MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
                eth.ether_src[0], eth.ether_src[1], eth.ether_src[2],
@@ -76,7 +72,6 @@ int main(int argc, char* argv[]) {
         printf("DST MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
                eth.ether_dst[0], eth.ether_dst[1], eth.ether_dst[2],
                eth.ether_dst[3], eth.ether_dst[4], eth.ether_dst[5]);
-        printf("Protocol: 0x%02x:0x%02x\n", eth.ether_type[0],eth.ether_type[1]);
 
         pcap_close(pcap);
     }
