@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
         }
 
         for (int k = 0; k < 2; k++) {
-            eth.ether_shost[k] = (u_int16_t*)packet[k+ETHER_ADDR_LEN*2];
+            eth.ether_type[k] = (u_int16_t*)packet[k+ETHER_ADDR_LEN*2];
         }
 
         printf("SRC MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
         printf("DST MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
                eth.ether_shost[0], eth.ether_shost[1], eth.ether_shost[2],
                eth.ether_shost[3], eth.ether_shost[4], eth.ether_shost[5]);
-        printf("Protocol: 0x%04x\n", eth.ether_type);
+        printf("Protocol: 0x%02x:0x%02x\n", eth.ether_type[0],eth.ether_type[1]);
 
         pcap_close(pcap);
     }
