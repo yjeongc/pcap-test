@@ -136,7 +136,7 @@ int main(int argc, char* argv[]) {
         }
 
         printf("%u bytes captured\n", header->caplen);
-        print_information(packet);  // 변경된 함수 이름
+        print_information(packet);
 
     }
 
