@@ -2,7 +2,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h> //for memcpy
-#include <arpa/inet.h> // for ntohs, inet_ntoa
 
 
 typedef struct ethernet_header {
@@ -11,12 +10,13 @@ typedef struct ethernet_header {
     uint16_t type; //타입 (IPv4)
 } ethernet_header; //14바이트
 
+
 typedef struct ip_header {
     uint8_t version_hd; //버전 + 헤더길이
     uint8_t tos; //서비스 타입
     uint16_t total_length; //총 길이
     uint16_t id; //식별자
-    uint16_t flags_offset; //플래그 & 오프셋
+    uint16_t flags_offset; //플래그 + 오프셋
     uint8_t ttl; //TTL
     uint8_t protocol; //프로토콜
     uint16_t checksum; //헤더 체크섬
